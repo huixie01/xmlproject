@@ -1,27 +1,84 @@
 package xmRadioLibrary;
 
-import java.io.File;
+import javax.xml.parsers.SAXParserFactory;
 
-import javax.xml.stream.XMLInputFactory;
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
+
+import javax.xml.parsers.SAXParser;
 
 public class FileConversion {
 
-	static XMLInputFactory xmlif = null;
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		try {
-			xmlif = XMLInputFactory.newInstance();
-			/*
-			FileInputStream fis = new FileInputStream(filename);
-			XMLStreamReader xmlr = xmlif.createFilterReader(xmlif.createFilteredReader(
-					reader, filter));
-					*/
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			
+   public static void main(String argv[]) {
+
+    try {
+
+	SAXParserFactory factory = SAXParserFactory.newInstance();
+	SAXParser saxParser = factory.newSAXParser();
+
+	DefaultHandler handler = new DefaultHandler() {
+
+	boolean id = true;
+	boolean ec = true;
+	boolean se = true;
+	Geolocation geoLoc;
+	TmcLocation tmcLoc;
+
+	public void startElement(String uri, String localName,String qName, 
+                Attributes attributes) throws SAXException {
+
+		System.out.println("Start Element :" + qName);
+
+		if (qName.equalsIgnoreCase("id")) {
+			id = true;
 		}
-		
-		
+
+		if (qName.equalsIgnoreCase("ec")) {
+			ec = true;
+		}
+
+		if (qName.equalsIgnoreCase("se")) {
+			se = true;
+		}
+		/*
+		if (qName.equalsIgnoreCase("loc")) {
+			bsalary = true;
+		}*/
+
 	}
+
+	public void endElement(String uri, String localName,
+		String qName) throws SAXException {
+
+		System.out.println("End Element :" + qName);
+
+	}
+
+	public void characters(char ch[], int start, int length) throws SAXException {
+
+		if (id) {
+			System.out.println("ID : " + new String(ch, start, length));
+			id = false;
+		}
+
+		
+		
+
+		
+
+	}
+
+     };
+
+       saxParser.parse("myinput.xml", handler);
+       
+     
+ 
+     } catch (Exception e) {
+       e.printStackTrace();
+     }
+  
+   }
 
 }
