@@ -18,9 +18,17 @@ public class TrafficIncident {
 		this.id=id;
 		this.ecode=ecode;
 		this.se=se;
+		this.loc=null;
 	}
 	public void setLocation(Location loc) {
 		this.loc = loc;
 	}
-
+	public void getExtraElements() {
+		System.out.println("startTime: " + startTime.toString());
+		System.out.println("endTime: " + endTime.toString());
+		System.out.println("desc: " + desc);
+	}
+	public Location getLocation() {
+		return loc;
+	}
 }
