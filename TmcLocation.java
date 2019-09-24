@@ -2,14 +2,17 @@ package xmRadioLibrary;
 
 
 public class TmcLocation implements Location {
-	public int startId;
-	public char dir;
-	public int startExt;
+	public String startId="10000";
+	public char dir='+';
+	public String startExt="0";
 	public String type="tmc";
-	public TmcLocation(int startId, char dir, int startExt){
+	public TmcLocation(String startId, char dir, String startExt){
 		this.startId = startId;
 		this.dir = dir;
 		this.startExt = startExt;		
+	}
+	public String toString() {
+		return startId + ", " + dir + ", " + startExt;
 	}
 	
 }
