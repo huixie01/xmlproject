@@ -8,3 +8,11 @@ But, don’t use them just to use them.
 Use any 3rd party open source library you would like. 
 Provide a main() method that demonstrates the usage of your library. 
 Provide a build script that produces a runnable JAR file (e.g. java -jar transform.jar). 
+
+# installation and run
+create a subdirectory called xmlRadioLibrary
+clone the repository
+put the input.xml in appropriate directory
+run the FileConversion.java main()
+check the output parsed element.
+
