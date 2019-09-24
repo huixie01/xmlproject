@@ -24,6 +24,8 @@ public class FileConversion {
 	boolean se = true;
 	Geolocation geoLoc;
 	TmcLocation tmcLoc;
+	TrafficIncident ti=new TrafficIncident("0","0","0");
+	
 
 	public void startElement(String uri, String localName,String qName, 
                 Attributes attributes) throws SAXException {
@@ -57,9 +59,16 @@ public class FileConversion {
 
 	public void characters(char ch[], int start, int length) throws SAXException {
 
+		
 		if (id) {
-			System.out.println("ID : " + new String(ch, start, length));
+			ti.id = new String(ch, start, length); 
 			id = false;
+		}else if (ec) {
+			ti.ecode =  new String(ch, start, length);
+			ec=false;
+		}else if (se) {
+			ti.se = new String(ch, start, length);
+			se=false;
 		}
 
 		
@@ -72,7 +81,7 @@ public class FileConversion {
      };
 
        saxParser.parse("myinput.xml", handler);
-       
+      
      
  
      } catch (Exception e) {
