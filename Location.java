@@ -1,9 +1,9 @@
 package xmRadioLibrary;
 
-public interface Location {
-	String type = "";
+public abstract class Location {
+	String type="";
 	
-	default String getType() {
-		return type;
-	}
+	public abstract String getType();
+	
+	
 }
