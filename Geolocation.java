@@ -1,11 +1,12 @@
 package xmRadioLibrary;
 
 public class Geolocation extends Location {
+	public Coordinate coordinate;
 	private String lon;
 	private String lat;
 	private String addr;
 	
-	public String type="geo";
+	private String type="geo";
 	public Geolocation(String lon, String lat, String addr) {
 		this.lon=lon;
 		this.lat=lat;
