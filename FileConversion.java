@@ -1,15 +1,17 @@
 package xmRadioLibrary;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
+import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import java.util.ArrayList;
-
-import javax.xml.parsers.SAXParser;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class FileConversion {
 
@@ -19,7 +21,8 @@ public class FileConversion {
 
 	SAXParserFactory factory = SAXParserFactory.newInstance();
 	SAXParser saxParser = factory.newSAXParser();
-
+	ArrayList<TrafficIncident<Location>>	ti_list = new ArrayList<TrafficIncident<Location>> ();
+	
 	DefaultHandler handler = new DefaultHandler() {
 
 	boolean incident = false;
@@ -50,8 +53,12 @@ public class FileConversion {
 	TmcLocation tmcLoc;
 	TrafficIncident<Location> ti=null;
 	String addr;
+	String loc_id;
+	String offset;
+	String extent;
 	String type="";
-	ArrayList<TrafficIncident<Location>>	ti_list;
+	String dir;
+	
 			
 	
 
@@ -62,7 +69,7 @@ public class FileConversion {
 
 		if (qName.equalsIgnoreCase("incident")) {
 			incident = true;
-			ti_list = new ArrayList<TrafficIncident<Location>> ();
+			
 		}
 		if (qName.equalsIgnoreCase("ev")) {
 			ev = true;
@@ -100,8 +107,28 @@ public class FileConversion {
 				lat=true;
 			}
 		}
-		if (qName.equalsIgnoreCase("tmc")) {
+		if (qName.equalsIgnoreCase("start")) {
 			tmc = true;
+			if ( attributes.getQName(0).equalsIgnoreCase("id")) {
+				loc_id = attributes.getValue(0);
+				System.out.println("start id: "+ loc_id);
+				loc_startid=true;
+			}
+			if ( attributes.getQName(1).equalsIgnoreCase("dir")) {
+				dir = attributes.getValue(1);
+				System.out.println("loc dir: " + dir);
+				loc_dir=true;
+			}
+			if ( attributes.getQName(2).equalsIgnoreCase("offset")) {
+				offset = attributes.getValue(2);
+				System.out.println("loc offset: " + offset);
+				loc_offset=true;
+			}
+			if ( attributes.getQName(3).equalsIgnoreCase("extent")) {
+				extent = attributes.getValue(3);
+				System.out.println("loc extent: " + extent);
+				loc_extent=true;
+			}
 		}
 		
 		if (qName.equalsIgnoreCase("id")) {
@@ -140,7 +167,7 @@ public class FileConversion {
 
 		if (qName.equalsIgnoreCase("incident")) {
 			incident = false;
-			ti_list = null;
+			
 		}
 		if (qName.equalsIgnoreCase("ev")) {
 			System.out.println("incident id: " + ti.id);
@@ -152,14 +179,16 @@ public class FileConversion {
 			
 			ti=null;
 			ev=false;
+			geo=false;
+			tmc=false;
 		
 			
 		}
 		if (qName.equalsIgnoreCase("loc")) {
 			location = false;
 			
-			geo=false;
-			tmc=false;
+			
+			
 		}
 		
 		
@@ -224,6 +253,13 @@ public class FileConversion {
 			ti.setEndTime(endTm);
 			etime = false;
 		}
+		if (ev_text) {
+			String tmp_text = new String(ch, start, length);
+			ti.setDesc(tmp_text);
+			System.out.println("    desc: " + tmp_text);
+			ev_text = false;
+		}
+			
 		if (location && tmc) {
 			
 				if (ti.get() == null) {
@@ -231,25 +267,27 @@ public class FileConversion {
 					ti.set(tmc_loc);
 				}
 				if (loc_startid) {
-					String tmp_startid;
-					tmp_startid = new String(ch, start, length);
+					
 					if (ti.get() instanceof TmcLocation)
-						((TmcLocation)ti.get()).setStartId(tmp_startid);
+						((TmcLocation)ti.get()).setStartId(loc_id);
 					loc_startid=false;
 				}
 				if (loc_dir) {
-					String tmp_dir;
-					tmp_dir = new String(ch, start, length);
+					
 					if (ti.get() instanceof TmcLocation)
-						((TmcLocation)ti.get()).setDir(tmp_dir.charAt(0));
+						((TmcLocation)ti.get()).setDir(dir.charAt(0));
 					loc_dir=false;
 				}
 				if (loc_extent) {
-					String tmp_ext;
-					tmp_ext = new String(ch, start, length);
+					
 					if (ti.get() instanceof TmcLocation)
-						((TmcLocation)ti.get()).setStartExt(tmp_ext);
+						((TmcLocation)ti.get()).setStartExt(extent);
 					loc_extent=false;
+				}
+				if (loc_offset) {
+					if (ti.get() instanceof TmcLocation)
+						((TmcLocation)ti.get()).setOffset(offset);
+					loc_offset=false;
 				}
 		}
 		
@@ -261,8 +299,27 @@ public class FileConversion {
 	
      };
 
-       saxParser.parse("myinput.xml", handler);
+      saxParser.parse("myinput.xml", handler);
       
+      System.out.println(ti_list);
+     
+      OutputMapper outputMap = new OutputMapper();
+      ObjectMapper mapper = new ObjectMapper();
+	   try {
+
+          // Java objects to JSON file
+		   File output = new File("output.txt");
+		   outputMap.convert(ti_list);
+
+		   // Java objects to JSON string - pretty-print
+		  String jsonInString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(outputMap.getEvents());
+
+          System.out.println(jsonInString);
+		   
+
+      } catch (IOException e) {
+          e.printStackTrace();
+      }
        
  
      } catch (Exception e) {
@@ -270,5 +327,5 @@ public class FileConversion {
      }
   
    }
+   
 }
-
