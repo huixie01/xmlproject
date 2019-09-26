@@ -11,6 +11,11 @@ public class TrafficIncident<T> {
 	public String ecode;
 	public String se;
 	private T t;
+	private String table;
+	private String lv;
+	private String fv;
+	private String at;
+	
 	
 	
 	public LocalDateTime startTime;
@@ -51,20 +56,38 @@ public class TrafficIncident<T> {
 		System.out.println("desc: " + desc);
 	}
 	
+	public String getDesc() {
+		return this.desc;
+	}
+	
+	public String getId() {
+		return this.id;
+	}
+	
+	public String getEventCode() {
+		return this.ecode;
+	}
+	
+	public String getSeverity() {
+		return this.se;
+	}
+	
+	
 	public String toString() {
 		String obj_str = "id: " + id;
 		obj_str += "\n ecode: " + ecode;
 		obj_str += "\n se: " + se;
 		if (t != null)
 			obj_str += "\n loc: " + t.toString();
+		
+			
 		if (startTime != null)
 			obj_str += "\n startTime: " + startTime.toString();
 		if (endTime != null)
 			obj_str += "\n endTime: " + endTime.toString();
 		if (desc != null)
 			obj_str += "\n desc: " + desc;
+		obj_str +="\n\n";
 		return obj_str;
 	}
 }
-
-
