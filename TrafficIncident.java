@@ -45,6 +45,12 @@ public class TrafficIncident<T> {
     	Instant instant = Instant.parse(startTm);
     	this.startTime = LocalDateTime.ofInstant(instant, ZoneId.of(ZoneOffset.UTC.getId()));
     }
+    public String getStartTime() {
+    	return this.startTime.toString();
+    }
+    public String getEndTime() {
+    	return this.endTime.toString();
+    }
     
     public void setEndTime(String endTm) {
     	Instant instant = Instant.parse(endTm);

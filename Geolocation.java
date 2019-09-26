@@ -12,6 +12,12 @@ public class Geolocation extends Location {
 		this.lat=lat;
 		this.addr=addr;
 	}
+	public String getLon() {
+		return lon;
+	}
+	public String getLat() {
+		return lat;
+	}
 	public String getType() {
 		return this.type;
 	}

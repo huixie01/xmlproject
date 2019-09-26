@@ -18,15 +18,23 @@ public class OutputMapper {
 			
 			event.description = ti.getDesc();
 			event.type=ti.getClass().getName();
+			event.severity=ti.getEventCode();
+			event.eventCode=ti.getEventCode();
+			event.validStart=ti.getStartTime();
+			event.validEnd=ti.getEndTime();
+			
 		
 			if (ti.get() instanceof TmcLocation) {
 				TmcLocation tmc_loc = (TmcLocation)ti.get();
+				tmc_loc._id=tmc_loc.getStartId();
 			    event.tmc = tmc_loc;
 			}
 				
 			if (ti.get() instanceof Geolocation) {
 				Geolocation geo_loc = (Geolocation)ti.get();
+				geo_loc.coordinate = new Coordinate(geo_loc.getLon(),geo_loc.getLat());
 				event.geo = geo_loc;
+				
 			}
 			locations.add(event);
 		}
