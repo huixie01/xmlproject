@@ -13,6 +13,43 @@ Provide a build script that produces a runnable JAR file (e.g. java -jar transfo
 create a subdirectory called xmlRadioLibrary
 clone the repository
 put the input.xml in appropriate directory
+download or put the jackson library into the project dependencies
+build the code
 run the FileConversion.java main()
 check the output parsed element.
 
+# output sample:
+[ {
+  "_id" : "23317403",
+  "description" : "In Manhattan, major road construction on Worth St between W Broadway and Church St.",
+  "geo" : {
+    "type" : "geo",
+    "_id" : 0,
+    "description" : null,
+    "coordinate" : null,
+    "addr" : "Worth St"
+  },
+  "tmc" : null,
+  "eventCode" : "702",
+  "severity" : "702",
+  "validStart" : "2019-02-10T05:00",
+  "validEnd" : "2019-04-13T03:58:59",
+  "type" : "xmRadioLibrary.TrafficIncident",
+  "lastUpdated" : null
+}, {
+  "_id" : "24049284",
+  "description" : "In Bronx, road construction on Creston Ave between Minerva Pl and E 198th St.",
+  "geo" : null,
+  "tmc" : {
+    "type" : "tmc",
+    "_id" : 0,
+    "description" : null,
+    "startId" : "16078"
+  },
+  "eventCode" : "701",
+  "severity" : "701",
+  "validStart" : "2019-03-02T05:00",
+  "validEnd" : "2019-04-02T03:58:59",
+  "type" : "xmRadioLibrary.TrafficIncident",
+  "lastUpdated" : null
+} ]
