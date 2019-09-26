@@ -19,37 +19,44 @@ run the FileConversion.java main()
 check the output parsed element.
 
 # output sample:
-[ {
-  "_id" : "23317403",
-  "description" : "In Manhattan, major road construction on Worth St between W Broadway and Church St.",
-  "geo" : {
-    "type" : "geo",
-    "_id" : 0,
-    "description" : null,
-    "coordinate" : null,
-    "addr" : "Worth St"
-  },
-  "tmc" : null,
-  "eventCode" : "702",
-  "severity" : "702",
-  "validStart" : "2019-02-10T05:00",
-  "validEnd" : "2019-04-13T03:58:59",
-  "type" : "xmRadioLibrary.TrafficIncident",
-  "lastUpdated" : null
-}, {
-  "_id" : "24049284",
-  "description" : "In Bronx, road construction on Creston Ave between Minerva Pl and E 198th St.",
-  "geo" : null,
-  "tmc" : {
-    "type" : "tmc",
-    "_id" : 0,
-    "description" : null,
-    "startId" : "16078"
-  },
-  "eventCode" : "701",
-  "severity" : "701",
-  "validStart" : "2019-03-02T05:00",
-  "validEnd" : "2019-04-02T03:58:59",
-  "type" : "xmRadioLibrary.TrafficIncident",
-  "lastUpdated" : null
-} ]
+{
+  "locations" : [ {
+    "_id" : "23317403",
+    "description" : "In Manhattan, major road construction on Worth St between W Broadway and Church St.",
+    "geo" : {
+      "type" : "Point",
+      "_id" : null,
+      "description" : null,
+      "coordinate" : {
+        "x" : "-74.00625",
+        "y" : "40.717075"
+      },
+      "lon" : "-74.00625",
+      "lat" : "40.717075",
+      "addr" : "Worth St"
+    },
+    "tmc" : null,
+    "eventCode" : "702",
+    "severity" : "3",
+    "validStart" : "2019-02-10T05:00",
+    "validEnd" : "2019-04-13T03:58:59",
+    "type" : null,
+    "lastUpdated" : null
+  }, {
+    "_id" : "24049284",
+    "description" : "In Bronx, road construction on Creston Ave between Minerva Pl and E 198th St.",
+    "geo" : null,
+    "tmc" : {
+      "type" : "TrafficIncident",
+      "_id" : "16078",
+      "description" : null,
+      "startId" : "16078"
+    },
+    "eventCode" : "701",
+    "severity" : "2",
+    "validStart" : "2019-03-02T05:00",
+    "validEnd" : "2019-04-02T03:58:59",
+    "type" : null,
+    "lastUpdated" : null
+  } ]
+}
