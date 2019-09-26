@@ -25,15 +25,15 @@ check the output parsed element.
   "geo" : {
     "type" : "geo",
     "_id" : 0,
-    "description" : null,    
+    "description" : null,
     "coordinate" : null,
     "addr" : "Worth St"
   },
   "tmc" : null,
-  "eventCode" : null,
-  "severity" : null,
-  "validStart" : null,
-  "validEnd" : null,
+  "eventCode" : "702",
+  "severity" : "702",
+  "validStart" : "2019-02-10T05:00",
+  "validEnd" : "2019-04-13T03:58:59",
   "type" : "xmRadioLibrary.TrafficIncident",
   "lastUpdated" : null
 }, {
@@ -46,11 +46,10 @@ check the output parsed element.
     "description" : null,
     "startId" : "16078"
   },
-  "eventCode" : null,
-  "severity" : null,
-  "validStart" : null,
-  "validEnd" : null,
+  "eventCode" : "701",
+  "severity" : "701",
+  "validStart" : "2019-03-02T05:00",
+  "validEnd" : "2019-04-02T03:58:59",
   "type" : "xmRadioLibrary.TrafficIncident",
   "lastUpdated" : null
 } ]
-
