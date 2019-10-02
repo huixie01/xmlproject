@@ -1,16 +1,16 @@
 package xmRadioLibrary;
 
 
-public class TmcLocation extends Location {
-	private String startId;
-	private char dir;
+public class TmcLocation implements Location {
+	private String id;
+	private char direction;
 	private String offset;
 	private String startExt;
-	private String type="tmc";
+	//private String type="TrafficIncident";
 	private String table;
 	public TmcLocation(String startId, char dir, String startExt){
-		this.startId = startId;
-		this.dir = dir;
+		this.id = startId;
+		this.direction = dir;
 		this.startExt = startExt;
 		this.offset = "";
 	}
@@ -18,13 +18,16 @@ public class TmcLocation extends Location {
 		return this.type;
 	}
 	public String toString() {
-		return startId + ", " + dir + ", " + offset + "," + startExt;
+		return id + ", " + direction + ", " + offset + "," + startExt;
 	}
 	public void setStartId(String startId) {
-		this.startId = startId;
+		this.id = startId;
 	}
 	public void setDir(char dir) {
-		this.dir = dir;
+		this.direction = dir;
+	}
+	public char getDir() {
+		return  this.direction;
 	}
 	public void setStartExt(String startExt) {
 		this.startExt = startExt;
@@ -33,7 +36,7 @@ public class TmcLocation extends Location {
 		this.offset = offset;
 	}
 	public String getStartId() {
-		return this.startId;
+		return this.id;
 	}
 	
 	

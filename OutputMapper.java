@@ -13,35 +13,34 @@ public class OutputMapper {
 	public void convert(List<TrafficIncident<Location>> ti_list) {
 		for (int i=0; i<ti_list.size(); i++) {
 			TrafficIncident ti = ti_list.get(i);
-			Event event = new Event();
-			event._id = ti.getId();
 			
-			event.description = ti.getDesc();
-			event.type=ti.getClass().getName();
-			event.severity=ti.getEventCode();
-			event.eventCode=ti.getEventCode();
-			event.validStart=ti.getStartTime();
-			event.validEnd=ti.getEndTime();
-			
-		
 			if (ti.get() instanceof TmcLocation) {
-				TmcLocation tmc_loc = (TmcLocation)ti.get();
-				tmc_loc._id=tmc_loc.getStartId();
+				TmcEvent event= new TmcEvent();
+				TmcLocation tmc_loc = (TmcLocation)ti.get();				
+				
 			    event.tmc = tmc_loc;
+			    
+			    event.setEvent(ti.getId(), ti.getDesc(), ti.getSeverity(), ti.getEventCode(), ti.getStartTime(), ti.getEndTime());
+			    locations.add(event);
 			}
 				
 			if (ti.get() instanceof Geolocation) {
+				GeoEvent event = new GeoEvent();
 				Geolocation geo_loc = (Geolocation)ti.get();
-				geo_loc.coordinate = new Coordinate(geo_loc.getLon(),geo_loc.getLat());
+			
 				event.geo = geo_loc;
-				
+				event.setEvent(ti.getId(), ti.getDesc(), ti.getSeverity(), ti.getEventCode(), ti.getStartTime(), ti.getEndTime());
+				locations.add(event);
 			}
-			locations.add(event);
+			
+			
+			
+		
+			
+			
 		}
 	}
 	
-	public List<Event> getEvents() {
-		return locations;
-	}
+	
 	
 }

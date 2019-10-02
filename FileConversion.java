@@ -45,6 +45,7 @@ public class FileConversion {
 	boolean loc_addr = false;
 	boolean ev_valid = false;
 	boolean ev_text = false;
+	boolean tb = true;
 	String loc_lon;
 	String loc_lat;
 	String startTm;
@@ -58,6 +59,7 @@ public class FileConversion {
 	String extent;
 	String type="";
 	String dir;
+	String tb_id;
 	
 			
 	
@@ -69,6 +71,13 @@ public class FileConversion {
 
 		if (qName.equalsIgnoreCase("incident")) {
 			incident = true;
+			if (qName.equalsIgnoreCase("ti")) {
+				if ( attributes.getQName(0).equalsIgnoreCase("table")) {
+					tb = true;
+					tb_id = attributes.getValue(0);
+					System.out.println("table id: "+ tb_id);
+				}
+			}
 			
 		}
 		if (qName.equalsIgnoreCase("ev")) {
@@ -203,6 +212,8 @@ public class FileConversion {
 			ti=new TrafficIncident<Location>("0","0","0");
 			ev=false;
 		}
+		
+		
 		if (id) {
 			ti.id = new String(ch, start, length); 
 			id = false;
@@ -222,18 +233,7 @@ public class FileConversion {
 					Geolocation tmp_loc = new Geolocation(loc_lon,loc_lat,"default");
 					ti.set(tmp_loc);
 				}
-				if (lon) {
-					//String tmp_lon;
-					//tmp_lon = new String(ch, start, length);
-					((Geolocation)ti.get()).setLon(loc_lon);
-					lon = false;
-				}
-				if (lat) {
-					//String tmp_lat;
-				//	tmp_lat = new String(ch, start, length);
-					((Geolocation)ti.get()).setLat(loc_lat);
-					lat = false;
-				}
+				
 				if (loc_addr ) {
 					addr = new String(ch, start, length);
 					((Geolocation)ti.get()).setAddr(addr);
@@ -312,7 +312,7 @@ public class FileConversion {
 		   outputMap.convert(ti_list);
 
 		   // Java objects to JSON string - pretty-print
-		  String jsonInString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(outputMap.getEvents());
+		  String jsonInString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(outputMap);
 
           System.out.println(jsonInString);
 		   

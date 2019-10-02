@@ -37,6 +37,10 @@ public class TrafficIncident<T> {
 	public void set(T t) { this.t = t; }
     public T get() { return t; }
 	
+    public String getTable() {return this.table;}
+    public void setTable(String t) {
+    	this.table = t;
+    }
     public void setDesc(String text) {
     	this.desc = text;
     }

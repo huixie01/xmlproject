@@ -1,12 +1,14 @@
 package xmRadioLibrary;
 
-public abstract class Location {
-	public String type="";
-	public String _id;
-	public String description;
+public interface  Location {
+	public String type="Tmc";
+	//public String _id;
+	//public String description;
 	
 	
-	public abstract String getType();
+	default String getType() {
+		return "";
+	}
 	
 	
 }
