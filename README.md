@@ -17,7 +17,9 @@ download or put the jackson library into the project dependencies
 build the code
 run the FileConversion.java main()
 check the output parsed element.
-
+# output format:
+All fields are written in json format and the output file datetime stamp is stored in "LastUpdated" field generated as ISO 8601 timeformat.
+      
 # output sample:
 {
   "locations" : [ {
@@ -31,8 +33,6 @@ check the output parsed element.
         "x" : "-74.00625",
         "y" : "40.717075"
       },
-      "lon" : "-74.00625",
-      "lat" : "40.717075",
       "addr" : "Worth St"
     },
     "tmc" : null,
